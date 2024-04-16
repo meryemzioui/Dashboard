@@ -1,29 +1,19 @@
-import Express  from "express";
-import bodyParser from "body-parser";
-import mongoose from "mongoose";
-import cors from "cors";
-import dotenv from "dotenv";
-import helmet from "helmet";
-import morgan from "morgan";
-import client from "./routes/client";
-import general from "./routes/general";
-import management from "./routes/management";
-import sales from "./routes/sales";
 
-
-// configuration
-dotenv.config();
-app = express();
-app.use(express.json());
-app.use(helmet());
-app.use(helmet.crossOriginResourcePolicy({policy : "cross-origin" }));
-app.use(morgan("common"));
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({extended : false}));
+const express = require("express");
+const app = express();
+const mongoose = require("mongoose");
+// const userroutes = require("./routes/userRoutes");
+// const productroutes = require("./routes/productRoutes");
+var cors = require("cors");
+require("dotenv").config();
 app.use(cors());
-
-// Routes
-app.use("/client",clientRoutes);
-app.use("/general",generalRoutes);
-app.use("/management",managementRoutes);
-app.use("/sales",salesRoutes);
+app.use(express.json());
+// app.use("/users", userroutes);
+// app.use("/products", productroutes);
+app.listen(process.env.PORT, () => {
+  console.log("Server is running on port:", process.env.PORT);
+});
+mongoose
+  .connect(process.env.MONGO_URL)
+  .then(() => console.log("Connected to database!"))
+  .catch((err) => console.error("Error connecting to database:", err));
