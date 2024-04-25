@@ -2,7 +2,7 @@ import {
   Box,
   Divider,
   Drawer,
-  IconButton,
+  // IconButton,
   List,
   ListItem,
   ListItemButton,
@@ -11,21 +11,21 @@ import {
   Typography,
   useTheme,
 } from "@mui/material";
+
 import {
-  SettingsOutlined,
-  ChevronLeft,
+  // SettingsOutlined,
+  // ChevronLeft,
   ChevronRightOutlined,
   HomeOutlined,
-  ShoppingCartOutlined,
+  SchoolOutlined,
   Groups2Outlined,
   ReceiptLongOutlined,
   PublicOutlined,
-  PointOfSaleOutlined,
-  TodayOutlined,
-  CalendarMonthOutlined,
   AdminPanelSettingsOutlined,
   TrendingUpOutlined,
-  PieChartOutlined,
+  LoginOutlined,
+  SchoolRounded
+ 
 } from "@mui/icons-material";
 import { useEffect, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
@@ -34,51 +34,36 @@ import FlexBetween from "./FlexBetween";
 
 const navItems = [
   {
-    text: "Dashboard",
+    text: "Home",
     icon: <HomeOutlined />,
   },
   {
-    text: "Client Facing",
-    icon: null,
+    text: "Students",
+    icon: <SchoolOutlined />,
   },
   {
-    text: "Products",
-    icon: <ShoppingCartOutlined />,
-  },
-  {
-    text: "Customers",
+    text: "Results",
     icon: <Groups2Outlined />,
   },
   {
-    text: "Transactions",
+    text: "Orientation",
     icon: <ReceiptLongOutlined />,
   },
   {
-    text: "Geography",
+    text: "Sources",
     icon: <PublicOutlined />,
   },
+  
   {
-    text: "Sales",
+    text: "Performance",
+    icon: <TrendingUpOutlined />,
+  },
+  {
+    text: "",
     icon: null,
   },
   {
-    text: "Overview",
-    icon: <PointOfSaleOutlined />,
-  },
-  {
-    text: "Daily",
-    icon: <TodayOutlined />,
-  },
-  {
-    text: "Monthly",
-    icon: <CalendarMonthOutlined />,
-  },
-  {
-    text: "Breakdown",
-    icon: <PieChartOutlined />,
-  },
-  {
-    text: "Management",
+    text: "",
     icon: null,
   },
   {
@@ -86,13 +71,12 @@ const navItems = [
     icon: <AdminPanelSettingsOutlined />,
   },
   {
-    text: "Performance",
-    icon: <TrendingUpOutlined />,
+    text: "Logout",
+    icon: <LoginOutlined />,
   },
 ];
 
 const Sidebar = ({
-  user,
   drawerWidth,
   isSidebarOpen,
   setIsSidebarOpen,
@@ -130,15 +114,16 @@ const Sidebar = ({
             <Box m="1.5rem 2rem 2rem 3rem">
               <FlexBetween color={theme.palette.secondary.main}>
                 <Box display="flex" alignItems="center" gap="0.5rem">
-                  <Typography variant="h4" fontWeight="bold">
-                    TAWDJIH
+                  <SchoolRounded />
+                  <Typography variant="h4" fontWeight="bold" >
+                    Ospro
                   </Typography>
                 </Box>
-                {!isNonMobile && (
+                {/* {!isNonMobile && (
                   <IconButton onClick={() => setIsSidebarOpen(!isSidebarOpen)}>
                     <ChevronLeft />
                   </IconButton>
-                )}
+                )} */}
               </FlexBetween>
             </Box>
             <List>
@@ -219,12 +204,12 @@ const Sidebar = ({
                   {user.occupation}
                 </Typography>
               </Box> */}
-              <SettingsOutlined
+              {/* <SettingsOutlined
                 sx={{
                   color: theme.palette.secondary[300],
                   fontSize: "25px ",
                 }}
-              />
+              /> */}
             </FlexBetween>
           </Box>
         </Drawer>
