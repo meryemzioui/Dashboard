@@ -3,11 +3,19 @@ import {
   DarkModeOutlined,
   Menu as MenuIcon,
   Search,
-  SettingsOutlined,
 } from "@mui/icons-material";
+import Avatar from '@mui/material/Avatar';
+import Badge from '@mui/material/Badge';
+import MailIcon from '@mui/icons-material/Mail';
+import NotificationsIcon from '@mui/icons-material/Notifications';
+import Box from '@mui/material/Box';
+
+
+
 import FlexBetween from "../Components/FlexBetween";
 import { useDispatch } from "react-redux";
 import { setMode } from "../Redux/Slices/ModeSlice";
+
 
 import {
   AppBar,
@@ -17,6 +25,8 @@ import {
   useTheme,
 } from "@mui/material";
 
+
+// eslint-disable-next-line react/prop-types
 const Navbar = ({isSidebarOpen, setIsSidebarOpen }) => {
   const dispatch = useDispatch();
   const theme = useTheme();
@@ -38,17 +48,14 @@ const Navbar = ({isSidebarOpen, setIsSidebarOpen }) => {
           <FlexBetween
             backgroundColor={theme.palette.background.alt}
             borderRadius="9px"
-            gap="3rem"
             p="0.1rem 1.5rem"
           >
-            <InputBase placeholder="Search..." />
             <IconButton>
               <Search />
             </IconButton>
+            <InputBase placeholder="Search..." />
           </FlexBetween>
         </FlexBetween>
-
-        
 
         {/* RIGHT SIDE */}
         <FlexBetween gap="1.5rem">
@@ -59,9 +66,24 @@ const Navbar = ({isSidebarOpen, setIsSidebarOpen }) => {
               <LightModeOutlined sx={{ fontSize: "25px" }} />
             )}
           </IconButton>
-          <IconButton>
-            <SettingsOutlined sx={{ fontSize: "25px" }} />
-          </IconButton>
+
+          <Box sx={{ display: { xs: 'none', md: 'flex' } }}>
+          <IconButton size="large" aria-label="show 4 new mails" >
+              <Badge badgeContent={4} color="error">
+                <MailIcon />
+              </Badge>
+            </IconButton>
+            <IconButton
+              size="large"
+              aria-label="show 17 new notifications"
+            >
+              <Badge badgeContent={17} color="error">
+                <NotificationsIcon />
+              </Badge>
+            </IconButton>
+          
+          </Box>
+          <Avatar sx={{ bgcolor: theme.palette.primary.main }}>M</Avatar>
         </FlexBetween>
       </Toolbar>
     </AppBar>

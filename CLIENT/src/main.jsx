@@ -5,10 +5,17 @@ import "./index.css";
 import { store } from "./Redux/Store.js";
 import { Provider } from "react-redux";
 
-import Layout from "./Pages/Layout/Layout.jsx";
-import SignIn from "./Pages/SignIn/SignIn.jsx";
-import SignUp from "./Pages/SignUp/SignUp.jsx";
-import Students from "./Pages/Students/Students.jsx";
+import Layout from "./Pages/Layout.jsx";
+import SignIn from "./Pages/SignIn.jsx";
+import SignUp from "./Pages/SignUp.jsx";
+import Student from "./Pages/Student.jsx";
+import  Home  from "./Pages/Home.jsx";
+import Class from "./Pages/Class.jsx";
+import Counselling from "./Pages/Counselling.jsx";
+import Statics from "./Pages/Statics.jsx";
+import Help from "./Pages/Help.jsx";
+import Admin from "./Pages/Admin.jsx";
+import Contact from "./Pages/Contact.jsx";
 
 const router = createBrowserRouter([
   {
@@ -16,8 +23,33 @@ const router = createBrowserRouter([
     element: <Layout />,
     children: [
       {
-        path: "/Students",
-        element: <Students />,
+        path: "/home",
+        element: <Home />,
+      },{
+        path: "/class",
+        element: <Class />,
+      },{
+        path: "/Student",
+        element: <Student />,
+      },{
+        path: "/Counselling",
+        element: <Counselling/>,
+      },
+      {
+        path: "/Statics",
+        element: < Statics/>,
+      },
+      {
+        path: "/help",
+        element: < Help/>,
+      },
+      {
+        path: "/admin",
+        element: < Admin/>,
+      },
+      {
+        path: "/contact",
+        element: < Contact/>,
       },
     ],
   },

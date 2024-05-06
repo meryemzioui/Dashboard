@@ -1,8 +1,7 @@
 import {
   Box,
-  Divider,
   Drawer,
-  // IconButton,
+  IconButton,
   List,
   ListItem,
   ListItemButton,
@@ -11,52 +10,50 @@ import {
   Typography,
   useTheme,
 } from "@mui/material";
-
 import {
-  // SettingsOutlined,
-  // ChevronLeft,
   ChevronRightOutlined,
-  HomeOutlined,
-  SchoolOutlined,
-  Groups2Outlined,
-  ReceiptLongOutlined,
-  PublicOutlined,
-  AdminPanelSettingsOutlined,
-  TrendingUpOutlined,
-  LoginOutlined,
-  SchoolRounded
- 
+  SchoolRounded,
+  AccountTreeRounded,
+  HomeRounded,
+  EqualizerRounded,
+  AdminPanelSettingsRounded,
+  GroupsRounded,
+  HelpRounded,
+  PersonRounded,
+  OutputRounded,
+  ChevronLeft,
+  EmailRounded,
 } from "@mui/icons-material";
 import { useEffect, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import FlexBetween from "./FlexBetween";
-// import profileImage from "assets/profile.jpeg";
 
 const navItems = [
   {
     text: "Home",
-    icon: <HomeOutlined />,
+    icon: <HomeRounded />,
   },
   {
-    text: "Students",
-    icon: <SchoolOutlined />,
+    text: "Student",
+    icon: <PersonRounded />,
   },
   {
-    text: "Results",
-    icon: <Groups2Outlined />,
-  },
-  {
-    text: "Orientation",
-    icon: <ReceiptLongOutlined />,
-  },
-  {
-    text: "Sources",
-    icon: <PublicOutlined />,
+    text: "Class",
+    icon: <GroupsRounded />,
   },
   
+
   {
-    text: "Performance",
-    icon: <TrendingUpOutlined />,
+    text: "Counselling",
+    icon: <AccountTreeRounded />,
+  },
+  {
+    text: "Statics",
+    icon: <EqualizerRounded />,
+  },
+  {
+    text: "Help",
+    icon: <HelpRounded />,
   },
   {
     text: "",
@@ -68,18 +65,26 @@ const navItems = [
   },
   {
     text: "Admin",
-    icon: <AdminPanelSettingsOutlined />,
+    icon: <AdminPanelSettingsRounded />,
   },
   {
-    text: "Logout",
-    icon: <LoginOutlined />,
+    text: "Contact",
+    icon: <EmailRounded />,
+  },
+  {
+    text: "Log Out",
+    icon: <OutputRounded />,
   },
 ];
 
 const Sidebar = ({
+  // eslint-disable-next-line react/prop-types
   drawerWidth,
+  // eslint-disable-next-line react/prop-types
   isSidebarOpen,
+  // eslint-disable-next-line react/prop-types
   setIsSidebarOpen,
+  // eslint-disable-next-line react/prop-types
   isNonMobile,
 }) => {
   const { pathname } = useLocation();
@@ -112,18 +117,18 @@ const Sidebar = ({
         >
           <Box width="100%">
             <Box m="1.5rem 2rem 2rem 3rem">
-              <FlexBetween color={theme.palette.secondary.main}>
+              <FlexBetween color={theme.palette.primary.main}>
                 <Box display="flex" alignItems="center" gap="0.5rem">
                   <SchoolRounded />
-                  <Typography variant="h4" fontWeight="bold" >
-                    Ospro
+                  <Typography variant="h4" fontWeight="bold">
+                  OrientPro
                   </Typography>
                 </Box>
-                {/* {!isNonMobile && (
+                {!isNonMobile && (
                   <IconButton onClick={() => setIsSidebarOpen(!isSidebarOpen)}>
                     <ChevronLeft />
                   </IconButton>
-                )} */}
+                )}
               </FlexBetween>
             </Box>
             <List>
@@ -175,42 +180,6 @@ const Sidebar = ({
                 );
               })}
             </List>
-          </Box>
-
-          <Box position="absolute" bottom="2rem">
-            <Divider />
-            <FlexBetween textTransform="none" gap="1rem" m="1.5rem 2rem 0 3rem">
-              {/* <Box
-                component="img"
-                alt="profile"
-                src={profileImage}
-                height="40px"
-                width="40px"
-                borderRadius="50%"
-                sx={{ objectFit: "cover" }}
-              /> */}
-              {/* <Box textAlign="left">
-                <Typography
-                  fontWeight="bold"
-                  fontSize="0.9rem"
-                  sx={{ color: theme.palette.secondary[100] }}
-                >
-                  {user.name}
-                </Typography>
-                <Typography
-                  fontSize="0.8rem"
-                  sx={{ color: theme.palette.secondary[200] }}
-                >
-                  {user.occupation}
-                </Typography>
-              </Box> */}
-              {/* <SettingsOutlined
-                sx={{
-                  color: theme.palette.secondary[300],
-                  fontSize: "25px ",
-                }}
-              /> */}
-            </FlexBetween>
           </Box>
         </Drawer>
       )}

@@ -27,7 +27,13 @@ const userShema = new mongoose.Schema({
   avatar: {
     type: String,
     
+}, 
 },
-  
-});
+{toJSON: {
+  transform(doc, ret) {
+    delete ret.password;
+  },
+}}
+);
+
 module.exports = mongoose.model("User", userShema);

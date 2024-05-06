@@ -1,6 +1,9 @@
 const multer = require("multer");
 const upload = require("../config/multer");
 const cloudinary = require("../config/cloudinaryConfig");
+var XLSX = require("xlsx");
+
+ //upload image
 
 exports.imageUpload = (req, res, next) => {
     upload.single("image")(req, res, (err) => {
@@ -23,7 +26,6 @@ exports.imageUpload = (req, res, next) => {
       }
     });
   };
-
 
 exports.multipleImageUpload = (req, res, next) => {
   upload.array("images", 10)(req, res, (err) => {
