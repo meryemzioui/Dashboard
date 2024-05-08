@@ -15,7 +15,7 @@ import Counselling from "./Pages/Counselling.jsx";
 import Statics from "./Pages/Statics.jsx";
 import Help from "./Pages/Help.jsx";
 import Admin from "./Pages/Admin.jsx";
-import Contact from "./Pages/Contact.jsx";
+import Contact from "./Pages/contact_page/Contact.jsx";
 
 const router = createBrowserRouter([
   {

@@ -1,77 +1,56 @@
 import { Box } from "@mui/material";
 import Header from "../Components/Header";
 import { DataGrid } from "@mui/x-data-grid";
+import { useEffect, useState } from "react";
+import axios from "axios";
 
 
 const Class = () => {
-  const rows = [
-    {
-      id: 1,
-      name: "Walid",
-      email: "jonsnow@gmail.com",
-      age: 13,
-      phone: "(665)121-5454",
-      access: "User",
-    },
-    {
-      id: 2,
-      name: "Meryem",
-      email: "meryem.zioui@gmail.com",
-      age: 37,
-      phone: "(421)314-2288",
-      access: "Admin",
-    },
-    {
-      id: 3,
-      name: "DjamelEddine",
-      email: "jaim@gmail.com",
-      age: 48,
-      phone: "(422)982-6739",
-      access: "User",
-    },
-    {
-      id: 4,
-      name: "Mohamed",
-      email: "Moha@gmail.com",
-      age: 6,
-      phone: "(921)425-6742",
-      access: "User",
-    },
-    {
-      id: 5,
-      name: "Amir",
-      email: "Miroo@gmail.com",
-      age: 4,
-      phone: "(421)445-1189",
-      access: "User",
-    },
-  ];
+
+  const [Students, setStudents] = useState([]);
+  useEffect(() => {
+    axios
+      .get("http://localhost:5000/student")
+      .then((res) => setStudents(res.data))
+      .catch((err) => console.log(err));
+  }, []);
+
+
+  
 
   const columns = [
+    
     {
-      field: "id",
+      field: "_id",
       headerName: "ID",
       width: 33,
       align: "center",
       headerAlign: "center",
     },
     {
-      field: "name",
-      headerName: "name",
+      field: "classe",
+      headerName: "CLASS",
       align: "left",
       headerAlign: "left",
       flex: 1,
     },
     {
-      field: "email",
-      headerName: "email",
+      field: "name",
+      headerName: "NAME",
+      align: "left",
+      headerAlign: "left",
+      flex: 1,
+    },
+    {
+      field: "datedenaissance",
+      headerName: "Date_De_Naissance",
       flex: 1,
       align: "center",
       headerAlign: "center",
     },
     {
-      field: "phone",
-      headerName: "phone",
+      field: "note",
+      headerName: "NOTE",
       flex: 1,
       align: "center",
       headerAlign: "center",
@@ -80,11 +59,11 @@ const Class = () => {
   ];
     return (
         <Box>
-      <Header title={"TEAM"} subTitle={"Managing the Team Members"} />
+      <Header title={"STUDENTS"} subTitle={"Managing the Classe"} />
 
       <Box sx={{ height: 400, mx: "auto", paddingRight: "15px" }}>
         <DataGrid
-          rows={rows}
+          rows={Students}
           columns={columns}
           initialState={{
             pagination: {

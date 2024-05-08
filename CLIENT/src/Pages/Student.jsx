@@ -1,65 +1,51 @@
 import Box from "@mui/material/Box";
 import TextField from "@mui/material/TextField";
-import { Alert, Button, MenuItem, Snackbar, Stack } from "@mui/material";
-import { useForm } from "react-hook-form";
+import {  Button,  Stack, Typography } from "@mui/material"; 
 import Header from "../Components/Header";
-import { useState } from "react";
+import axios from "axios";
+import Swal from "sweetalert2";
 
 
-const phoneRegExp =
-  /^((\+[1-9]{1,4}[ -]?)|(\([0-9]{2,3}\)[ -]?)|([0-9]{2,4})[ -]?)*?[0-9]{3,4}[ -]?[0-9]{3,4}$/;
 
-const data = [
-  {
-    value: "TCS1",
-    label: "TCS1",
-  },
-  {
-    value: "TCS2",
-    label: "TCS2",
-  },
-  {
-    value: "TCS3",
-    label: "TCS3",
-  },
-  {
-    value: "TCL1",
-    label: "TCL1",
-  },
-];
+export default function Student() {
+  
+  const handleSubmit = (event) => {
+    event.preventDefault();
 
-const Student = () => {
-  const {
-    register,
-    handleSubmit,
-    // watch,
-    formState: { errors },
-  } = useForm();
+    const data = new FormData(event.currentTarget);
+    const name = data.get("name");
+    const filiere = data.get("filiere");
+    const Classe = data.get("classe");
+    const note = data.get("note");
+    const datedenaissance = data.get("datedenaissance");
 
-  const [open, setOpen] = useState(false);
+    axios
+      .post("http://localhost:5000/student", {
+       
+        Classe,
+        name,
+        datedenaissance,
+        note,
+        filiere,
+        
+      })
+      .then((res) => {
+        console.log(res.data);
 
-  const handleClose = (event, reason) => {
-    if (reason === "clickaway") {
-      return;
-    }
-
-    setOpen(false);
+        Swal.fire({
+          title: "student created!",
+          text: "You clicked the button!",
+          icon: "success",
+        });
+      })
+      .catch((err) => console.log(err));
   };
-
-  const handleClick = () => {
-    setOpen(true);
-  };
-
-  const onSubmit = () => {
-    handleClick();
-  };
-
   return (
-    <Box>
+    <Box marginRight={"25px"}>
       <Header title="CREATE Student" subTitle="Create a New Student " />
 
       <Box
-        onSubmit={handleSubmit(onSubmit)}
+        onSubmit={handleSubmit}
         component="form"
         sx={{
           display: "flex",
@@ -69,90 +55,79 @@ const Student = () => {
         noValidate
         autoComplete="off"
       >
-        <Stack sx={{ gap: 2 }} direction={"row"}>
-          <TextField
-            error={Boolean(errors.firstName)}
-            // helperText={
-            //   Boolean(errors.firstName)
-            //     ? "This field is required & min 3 character"
-            //     : null
-            // }
-            {...register("firstName", { required: true, minLength: 3 })}
+        <Stack sx={{ gap: 4 }} direction={"row"}>
+        <TextField
             sx={{ flex: 1 }}
-            label="First Name"
-            variant="filled"
+            label="filiere"
+            name="filiere"
+            id="filiere"
+            autoFocus
           />
-
           <TextField
-            error={Boolean(errors.lastName)}
-            // helperText={
-            //   Boolean(errors.lastName)
-            //     ? "This field is required & min 3 character"
-            //     : null
-            // }
-            {...register("lastName", { required: true, minLength: 3 })}
             sx={{ flex: 1 }}
-            label="Last Name"
-            variant="filled"
+            label="Classe"
+            name="classe"
+            id="classe"
+          />
+          <TextField
+            sx={{ flex: 1 }}
+            label="Name"
+            name="name"
+            id="name"
+          />
+          <TextField
+            sx={{ flex: 1 }}
+            label="Note"
+            name="note"
+            id="note"
+          />
+          <TextField
+            sx={{ flex: 1 }}
+            label="Date_de_naissance"
+            name="datedenaissance"
+            id="datedenaissance"
           />
         </Stack>
-
-        
-
+        <Typography>Moyenne générale</Typography>
+        <Stack sx={{ gap: 4 }} direction={"row"}>
         <TextField
-          error={Boolean(errors.ContactNumber)}
-          // helperText={
-          //   Boolean(errors.ContactNumber)
-          //     ? "Please provide a valid Phone number"
-          //     : null
-          // }
-          {...register("ContactNumber", {
-            required: true,
-            pattern: phoneRegExp,
-          })}
-          label="Contact Number"
-          variant="filled"
-        />
-        <TextField label="Adress 1" variant="filled" />
-        
-
+            sx={{ flex: 1 }}
+            label="Moyenne générale"
+            name="moyg"
+            id="moyg"
+          />
+        </Stack>
+        <Typography>Resultat</Typography>
+        <Stack sx={{ gap: 4 }} direction={"row"}>
         <TextField
-          variant="filled"
-          id="outlined-select-currency"
-          select
-          label="Classe"
-          defaultValue="TCS1"
-        >
-          {data.map((option) => (
-            <MenuItem key={option.value} value={option.value}>
-              {option.label}
-            </MenuItem>
-          ))}
-        </TextField>
-
-        <Box sx={{ textAlign: "right" }}>
+            sx={{ flex: 1 }}
+            label="Mathématiques"
+            name="math"
+            id="math"
+          />
+          <TextField
+            sx={{ flex: 1 }}
+            label="physique"
+            name="phys"
+            id="phys"
+          />
+          <TextField
+            sx={{ flex: 1 }}
+            label="science"
+            name="scie"
+            id="scie"
+          />
+        </Stack>
+        <Box>
           <Button
             type="submit"
             sx={{ textTransform: "capitalize" }}
-            variant="contained"
+            variant="outlined"
           >
-            Create New Student
+            Create Student
           </Button>
-
-          <Snackbar
-            anchorOrigin={{ vertical: "top", horizontal: "right" }}
-            open={open}
-            autoHideDuration={3000}
-            onClose={handleClose}
-          >
-            <Alert onClose={handleClose} severity="info" sx={{ width: "100%" }}>
-              Account created successfully
-            </Alert>
-          </Snackbar>
-        </Box>
+          </Box>
       </Box>
     </Box>
   );
-};
-
-export default Student;
+}

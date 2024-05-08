@@ -17,7 +17,6 @@ import Swal from "sweetalert2";
 import { useDispatch } from "react-redux";
 import { register } from "../Redux/Slices/authslice";
 
-
 function Copyright(props) {
   return (
     <Typography
@@ -35,20 +34,18 @@ function Copyright(props) {
     </Typography>
   );
 }
-
 const defaultTheme = createTheme();
 
 export default function SignUp() {
-  const dispatch =useDispatch()
+  const dispatch = useDispatch();
   const navigate = useNavigate();
   const handleSubmit = (event) => {
-    event.preventDefault();
-    const data = new FormData(event.currentTarget);
-
-    const email = data.get("email");
-    const password = data.get("password");
-    const firstName = data.get("firstName");
-    const lastName = data.get("lastName");
+  event.preventDefault();
+  const data = new FormData(event.currentTarget);
+  const email = data.get("email");
+  const password = data.get("password");
+  const firstName = data.get("firstName");
+  const lastName = data.get("lastName");
 
     axios
       .post("http://localhost:5000/auth/register", {
@@ -57,7 +54,7 @@ export default function SignUp() {
         username: firstName + lastName,
       })
       .then((res) => {
-        dispatch(register(res.data.user))
+        dispatch(register(res.data.user));
         console.log(data.user);
 
         Swal.fire({

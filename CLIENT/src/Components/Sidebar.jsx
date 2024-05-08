@@ -20,13 +20,13 @@ import {
   GroupsRounded,
   HelpRounded,
   PersonRounded,
-  OutputRounded,
   ChevronLeft,
   EmailRounded,
 } from "@mui/icons-material";
 import { useEffect, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import FlexBetween from "./FlexBetween";
+import { Menu as MenuIcon } from "@mui/icons-material";
 
 const navItems = [
   {
@@ -41,7 +41,6 @@ const navItems = [
     text: "Class",
     icon: <GroupsRounded />,
   },
-  
 
   {
     text: "Counselling",
@@ -70,10 +69,6 @@ const navItems = [
   {
     text: "Contact",
     icon: <EmailRounded />,
-  },
-  {
-    text: "Log Out",
-    icon: <OutputRounded />,
   },
 ];
 
@@ -117,11 +112,16 @@ const Sidebar = ({
         >
           <Box width="100%">
             <Box m="1.5rem 2rem 2rem 3rem">
-              <FlexBetween color={theme.palette.primary.main}>
+              <FlexBetween color={theme.palette.info.light}>
                 <Box display="flex" alignItems="center" gap="0.5rem">
+                    <IconButton
+                      onClick={() => setIsSidebarOpen(!isSidebarOpen)}
+                    >
+                      <MenuIcon />
+                    </IconButton>
                   <SchoolRounded />
                   <Typography variant="h4" fontWeight="bold">
-                  OrientPro
+                    OrientPro
                   </Typography>
                 </Box>
                 {!isNonMobile && (
