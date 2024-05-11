@@ -1,33 +1,50 @@
 import Box from "@mui/material/Box";
 import TextField from "@mui/material/TextField";
-import {  Button,  Stack, Typography } from "@mui/material"; 
+import { Button, Stack, Typography } from "@mui/material";
 import Header from "../Components/Header";
 import axios from "axios";
 import Swal from "sweetalert2";
+import { styled } from "@mui/material/styles";
+import CloudUploadIcon from "@mui/icons-material/CloudUpload";
 
-
+const VisuallyHiddenInput = styled("input")({
+  clip: "rect(0 0 0 0)",
+  clipPath: "inset(50%)",
+  height: 1,
+  overflow: "hidden",
+  position: "absolute",
+  bottom: 0,
+  left: 0,
+  whiteSpace: "nowrap",
+  width: 1,
+});
 
 export default function Student() {
-  
   const handleSubmit = (event) => {
     event.preventDefault();
 
     const data = new FormData(event.currentTarget);
     const name = data.get("name");
     const filiere = data.get("filiere");
-    const Classe = data.get("classe");
-    const note = data.get("note");
+    const classe = data.get("classe");
+    const moyg = data.get("moyg");
+    const math = data.get("math");
+    const phys = data.get("phys");
+    const scie = data.get("scie");
+    const choix = data.get("choix");
     const datedenaissance = data.get("datedenaissance");
 
     axios
       .post("http://localhost:5000/student", {
-       
-        Classe,
+        classe,
         name,
         datedenaissance,
-        note,
+        moyg,
         filiere,
-        
+        math,
+        phys,
+        scie,
+        choix,
       })
       .then((res) => {
         console.log(res.data);
@@ -42,8 +59,19 @@ export default function Student() {
   };
   return (
     <Box marginRight={"25px"}>
-      <Header title="CREATE Student" subTitle="Create a New Student " />
+      <Header title={"Upload data"} subTitle={"Upload csv file here"} />
+      <Button
+        component="label"
+        role={undefined}
+        variant="contained"
+        tabIndex={-1}
+        startIcon={<CloudUploadIcon />}
+      >
+        Upload file
+        <VisuallyHiddenInput type="file" />
+      </Button>
 
+      <Header title="CREATE Student" subTitle="Create a New Student " />
       <Box
         onSubmit={handleSubmit}
         component="form"
@@ -56,7 +84,7 @@ export default function Student() {
         autoComplete="off"
       >
         <Stack sx={{ gap: 4 }} direction={"row"}>
-        <TextField
+          <TextField
             sx={{ flex: 1 }}
             label="filiere"
             name="filiere"
@@ -69,18 +97,7 @@ export default function Student() {
             name="classe"
             id="classe"
           />
-          <TextField
-            sx={{ flex: 1 }}
-            label="Name"
-            name="name"
-            id="name"
-          />
-          <TextField
-            sx={{ flex: 1 }}
-            label="Note"
-            name="note"
-            id="note"
-          />
+          <TextField sx={{ flex: 1 }} label="Name" name="name" id="name" />
           <TextField
             sx={{ flex: 1 }}
             label="Date_de_naissance"
@@ -90,7 +107,7 @@ export default function Student() {
         </Stack>
         <Typography>Moyenne générale</Typography>
         <Stack sx={{ gap: 4 }} direction={"row"}>
-        <TextField
+          <TextField
             sx={{ flex: 1 }}
             label="Moyenne générale"
             name="moyg"
@@ -99,24 +116,15 @@ export default function Student() {
         </Stack>
         <Typography>Resultat</Typography>
         <Stack sx={{ gap: 4 }} direction={"row"}>
-        <TextField
+          <TextField
             sx={{ flex: 1 }}
             label="Mathématiques"
             name="math"
             id="math"
           />
-          <TextField
-            sx={{ flex: 1 }}
-            label="physique"
-            name="phys"
-            id="phys"
-          />
-          <TextField
-            sx={{ flex: 1 }}
-            label="science"
-            name="scie"
-            id="scie"
-          />
+          <TextField sx={{ flex: 1 }} label="physique" name="phys" id="phys" />
+          <TextField sx={{ flex: 1 }} label="science" name="scie" id="scie" />
+          <TextField sx={{ flex: 1 }} label="CHOIX" name="choix" id="choix" />
         </Stack>
         <Box>
           <Button
@@ -126,7 +134,7 @@ export default function Student() {
           >
             Create Student
           </Button>
-          </Box>
+        </Box>
       </Box>
     </Box>
   );

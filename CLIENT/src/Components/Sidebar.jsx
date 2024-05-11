@@ -1,7 +1,6 @@
 import {
   Box,
   Drawer,
-  IconButton,
   List,
   ListItem,
   ListItemButton,
@@ -12,33 +11,29 @@ import {
 } from "@mui/material";
 import {
   ChevronRightOutlined,
-  SchoolRounded,
   AccountTreeRounded,
-  HomeRounded,
   EqualizerRounded,
   AdminPanelSettingsRounded,
   GroupsRounded,
   HelpRounded,
   PersonRounded,
-  ChevronLeft,
   EmailRounded,
 } from "@mui/icons-material";
 import { useEffect, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
-import FlexBetween from "./FlexBetween";
-import { Menu as MenuIcon } from "@mui/icons-material";
 
 const navItems = [
+  
   {
-    text: "Home",
-    icon: <HomeRounded />,
+    text: "",
+    icon: null,
   },
   {
     text: "Student",
     icon: <PersonRounded />,
   },
   {
-    text: "Class",
+    text: "Students",
     icon: <GroupsRounded />,
   },
 
@@ -111,26 +106,6 @@ const Sidebar = ({
           }}
         >
           <Box width="100%">
-            <Box m="1.5rem 2rem 2rem 3rem">
-              <FlexBetween color={theme.palette.info.light}>
-                <Box display="flex" alignItems="center" gap="0.5rem">
-                    <IconButton
-                      onClick={() => setIsSidebarOpen(!isSidebarOpen)}
-                    >
-                      <MenuIcon />
-                    </IconButton>
-                  <SchoolRounded />
-                  <Typography variant="h4" fontWeight="bold">
-                    OrientPro
-                  </Typography>
-                </Box>
-                {!isNonMobile && (
-                  <IconButton onClick={() => setIsSidebarOpen(!isSidebarOpen)}>
-                    <ChevronLeft />
-                  </IconButton>
-                )}
-              </FlexBetween>
-            </Box>
             <List>
               {navItems.map(({ text, icon }) => {
                 if (!icon) {
@@ -146,7 +121,7 @@ const Sidebar = ({
                   <ListItem key={text} disablePadding>
                     <ListItemButton
                       onClick={() => {
-                        navigate(`/${lcText}`);
+                        navigate(`/dashboard/${lcText}`);
                         setActive(lcText);
                       }}
                       sx={{

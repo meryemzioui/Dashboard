@@ -1,49 +1,81 @@
 import {
-  LightModeOutlined,
-  DarkModeOutlined,
+  
   Menu as MenuIcon,
 } from "@mui/icons-material";
-import Avatar from "@mui/material/Avatar";
 import FlexBetween from "../Components/FlexBetween";
-import { useDispatch } from "react-redux";
-import { setMode } from "../Redux/Slices/ModeSlice";
-import { AppBar, IconButton, Toolbar, useTheme } from "@mui/material";
+
+import {
+  AppBar,
+  Box,
+  IconButton,
+  Toolbar,
+  Typography,
+  useTheme,
+} from "@mui/material";
+import ToggleColorMode from "./ToggleColorMode";
 
 // eslint-disable-next-line react/prop-types
-const Navbar = ({ isSidebarOpen, setIsSidebarOpen }) => {
-  const dispatch = useDispatch();
+const Navbar = ({ isSidebarOpen, setIsSidebarOpen, mode, toggleColorMode }) => {
+  
   const theme = useTheme();
 
   return (
     <AppBar
       sx={{
         position: "static",
-        background: "none",
-        boxShadow: "none",
+        boxShadow: 0,
+          bgcolor: 'transparent',
+          backgroundImage: 'none',
+          mt: 2,
       }}
     >
-      <Toolbar sx={{ justifyContent: "space-between" }}>
+      <Toolbar
+            variant="regular"
+            sx={(theme) => ({
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'space-between',
+              flexShrink: 0,
+              borderRadius: '999px',
+              bgcolor:
+                theme.palette.mode === 'light'
+                  ? 'rgba(255, 255, 255, 0.4)'
+                  : 'rgba(0, 0, 0, 0.4)',
+              backdropFilter: 'blur(24px)',
+              maxHeight: 40,
+              border: '1px solid',
+              borderColor: 'divider',
+              boxShadow:
+                theme.palette.mode === 'light'
+                  ? `0 0 1px rgba(85, 166, 246, 0.1), 1px 1.5px 2px -1px rgba(85, 166, 246, 0.15), 4px 4px 12px -2.5px rgba(85, 166, 246, 0.15)`
+                  : '0 0 1px rgba(2, 31, 59, 0.7), 1px 1.5px 2px -1px rgba(2, 31, 59, 0.65), 4px 4px 12px -2.5px rgba(2, 31, 59, 0.65)',
+            })}
+          >
         {/* LEFT SIDE */}
         <FlexBetween>
-          <IconButton onClick={() => setIsSidebarOpen(!isSidebarOpen)}>
-            <MenuIcon />
-          </IconButton>
+          <Box m="1.5rem 2rem 2rem 3rem">
+            <FlexBetween color={theme.palette.info.light}>
+              <Box display="flex" alignItems="center" gap="0.5rem">
+                <IconButton onClick={() => setIsSidebarOpen(!isSidebarOpen)}>
+                  <MenuIcon />
+                </IconButton>
+                <img width="64" height="64" src="https://img.icons8.com/cotton/64/graduation-cap--v2.png" alt="graduation-cap--v2"/>
+                <Typography variant="h4" fontWeight="bold">
+                  OrientPro
+                </Typography>
+              </Box>
+            </FlexBetween>
+          </Box>
         </FlexBetween>
-
+       
         {/* RIGHT SIDE */}
         <FlexBetween gap="1.5rem">
-          <IconButton onClick={() => dispatch(setMode())}>
-            {theme.palette.mode === "dark" ? (
-              <DarkModeOutlined sx={{ fontSize: "25px" }} />
-            ) : (
-              <LightModeOutlined sx={{ fontSize: "25px" }} />
-            )}
-          </IconButton>
-          <Avatar sx={{ bgcolor: theme.palette.info.light }}>M</Avatar>
+        <ToggleColorMode mode={mode} toggleColorMode={toggleColorMode} />
         </FlexBetween>
       </Toolbar>
     </AppBar>
   );
 };
+
 
 export default Navbar;

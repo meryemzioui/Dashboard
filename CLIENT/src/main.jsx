@@ -9,46 +9,47 @@ import Layout from "./Pages/Layout.jsx";
 import SignIn from "./Pages/SignIn.jsx";
 import SignUp from "./Pages/SignUp.jsx";
 import Student from "./Pages/Student.jsx";
-import  Home  from "./Pages/Home.jsx";
 import Class from "./Pages/Class.jsx";
 import Counselling from "./Pages/Counselling.jsx";
 import Statics from "./Pages/Statics.jsx";
 import Help from "./Pages/Help.jsx";
 import Admin from "./Pages/Admin.jsx";
-import Contact from "./Pages/contact_page/Contact.jsx";
+import Contact from "./Pages/Contact.jsx";
+import LandingPage from "./Pages/LandingPage.jsx";
 
 const router = createBrowserRouter([
   {
     path: "/",
-    element: <Layout />,
+    element: <LandingPage />,
+  },
+  {
+    path: "/dashboard",
+    element: <Layout/>,
     children: [
       {
-        path: "/home",
-        element: <Home />,
-      },{
-        path: "/class",
+        path: "/dashboard/Students",
         element: <Class />,
       },{
-        path: "/Student",
+        path: "/dashboard/Student",
         element: <Student />,
       },{
-        path: "/Counselling",
+        path: "/dashboard/Counselling",
         element: <Counselling/>,
       },
       {
-        path: "/Statics",
+        path: "/dashboard/Statics",
         element: < Statics/>,
       },
       {
-        path: "/help",
+        path: "/dashboard/help",
         element: < Help/>,
       },
       {
-        path: "/admin",
+        path: "/dashboard/admin",
         element: < Admin/>,
       },
       {
-        path: "/contact",
+        path: "/dashboard/contact",
         element: < Contact/>,
       },
     ],
@@ -62,6 +63,8 @@ const router = createBrowserRouter([
     path: "/signup",
     element: <SignUp />,
   },
+  
+  
 ]);
 
 ReactDOM.createRoot(document.getElementById("root")).render(

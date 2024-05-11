@@ -1,9 +1,9 @@
 import { useForm, ValidationError } from "@formspree/react";
 import Lottie from "lottie-react";
-import doneAnimation from "../../animation/done.json";
-import contactAnimation from "../../animation/contact.json";
+import contactAnimation from "../animation/contact.json";
 import { Box, Button, Stack, TextField } from "@mui/material";
-import Header from "../../Components/Header";
+import Header from "../Components/Header";
+import doneAnimation from "../animation/done.json";
 
 const Contact = () => {
   const [state, handleSubmit] = useForm("myyroalv");
@@ -15,6 +15,19 @@ const Contact = () => {
         subTitle="Contact us for more information and Get notified when I publish
         something new."
       />
+         {state.succeeded && (
+            <p
+              className="flex"
+              style={{ fontSize: "18px", marginTop: "1.7rem" }}
+            >
+              <Lottie
+                loop={false}
+                style={{ height: 37 }}
+                animationData={doneAnimation}
+              />
+              Your message has been sent successfully 👌
+            </p>
+          )}
       <Stack sx={{ gap: 4, width: "900 px" }} direction={"row"}>
         <Box
           onSubmit={handleSubmit}
@@ -67,16 +80,7 @@ const Contact = () => {
             >
               {state.submitting ? "Submitting ..." : "Submit"}
             </Button>
-            {state.succeeded && (
-              <Box sx={{ fontSize: "18px", marginTop: "1.7rem" }}>
-                <Lottie
-                  loop={false}
-                  style={{ height: 60 }}
-                  animationData={doneAnimation}
-                />
-                Your message has been sent successfully 👌
-              </Box>
-            )}
+         
           </Box>
         </Box>
 
