@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import {
   
   Menu as MenuIcon,
@@ -7,19 +8,31 @@ import FlexBetween from "../Components/FlexBetween";
 import {
   AppBar,
   Box,
+  CssBaseline,
   IconButton,
+  Switch,
+  ThemeProvider,
   Toolbar,
-  Typography,
-  useTheme,
+  createTheme,
 } from "@mui/material";
-import ToggleColorMode from "./ToggleColorMode";
+import { useState } from 'react';
+
+
 
 // eslint-disable-next-line react/prop-types
-const Navbar = ({ isSidebarOpen, setIsSidebarOpen, mode, toggleColorMode }) => {
+const Navbar = ({ isSidebarOpen, setIsSidebarOpen }) => {
+  const [mode, setMode] = useState('light');
   
-  const theme = useTheme();
+
+  const theme = createTheme({
+    palette:{
+      mode:mode ? "light" : "dark"
+     }
+  })
 
   return (
+    <ThemeProvider theme={theme}>
+      <CssBaseline />
     <AppBar
       sx={{
         position: "static",
@@ -59,10 +72,6 @@ const Navbar = ({ isSidebarOpen, setIsSidebarOpen, mode, toggleColorMode }) => {
                 <IconButton onClick={() => setIsSidebarOpen(!isSidebarOpen)}>
                   <MenuIcon />
                 </IconButton>
-                <img width="64" height="64" src="https://img.icons8.com/cotton/64/graduation-cap--v2.png" alt="graduation-cap--v2"/>
-                <Typography variant="h4" fontWeight="bold">
-                  OrientPro
-                </Typography>
               </Box>
             </FlexBetween>
           </Box>
@@ -70,12 +79,16 @@ const Navbar = ({ isSidebarOpen, setIsSidebarOpen, mode, toggleColorMode }) => {
        
         {/* RIGHT SIDE */}
         <FlexBetween gap="1.5rem">
-        <ToggleColorMode mode={mode} toggleColorMode={toggleColorMode} />
+       <Switch onClick={()=>setMode(!mode)}></Switch>
         </FlexBetween>
       </Toolbar>
     </AppBar>
+    </ThemeProvider>
   );
 };
-
+Navbar.propTypes = {
+  mode: PropTypes.oneOf(["dark", "light"]).isRequired,
+  toggleColorMode: PropTypes.func.isRequired,
+};
 
 export default Navbar;

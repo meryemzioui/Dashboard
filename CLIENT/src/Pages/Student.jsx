@@ -1,23 +1,14 @@
 import Box from "@mui/material/Box";
 import TextField from "@mui/material/TextField";
-import { Button, Stack, Typography } from "@mui/material";
+import { Button,  Stack, Typography } from "@mui/material";
 import Header from "../Components/Header";
 import axios from "axios";
 import Swal from "sweetalert2";
-import { styled } from "@mui/material/styles";
-import CloudUploadIcon from "@mui/icons-material/CloudUpload";
 
-const VisuallyHiddenInput = styled("input")({
-  clip: "rect(0 0 0 0)",
-  clipPath: "inset(50%)",
-  height: 1,
-  overflow: "hidden",
-  position: "absolute",
-  bottom: 0,
-  left: 0,
-  whiteSpace: "nowrap",
-  width: 1,
-});
+
+
+
+
 
 export default function Student() {
   const handleSubmit = (event) => {
@@ -59,17 +50,6 @@ export default function Student() {
   };
   return (
     <Box marginRight={"25px"}>
-      <Header title={"Upload data"} subTitle={"Upload csv file here"} />
-      <Button
-        component="label"
-        role={undefined}
-        variant="contained"
-        tabIndex={-1}
-        startIcon={<CloudUploadIcon />}
-      >
-        Upload file
-        <VisuallyHiddenInput type="file" />
-      </Button>
 
       <Header title="CREATE Student" subTitle="Create a New Student " />
       <Box
@@ -84,47 +64,22 @@ export default function Student() {
         autoComplete="off"
       >
         <Stack sx={{ gap: 4 }} direction={"row"}>
-          <TextField
-            sx={{ flex: 1 }}
-            label="filiere"
-            name="filiere"
-            id="filiere"
-            autoFocus
-          />
-          <TextField
-            sx={{ flex: 1 }}
-            label="Classe"
-            name="classe"
-            id="classe"
-          />
+          <TextField sx={{ flex: 1 }}  label="filiere"  name="filiere"  id="filiere"  autoFocus />
+          <TextField sx={{ flex: 1 }}  label="Classe"  name="classe"  id="classe"/>
           <TextField sx={{ flex: 1 }} label="Name" name="name" id="name" />
-          <TextField
-            sx={{ flex: 1 }}
-            label="Date_de_naissance"
-            name="datedenaissance"
-            id="datedenaissance"
+          <TextField sx={{ flex: 1 }} label="Date_de_naissance" name="datedenaissance" id="datedenaissance"
           />
         </Stack>
         <Typography>Moyenne générale</Typography>
         <Stack sx={{ gap: 4 }} direction={"row"}>
-          <TextField
-            sx={{ flex: 1 }}
-            label="Moyenne générale"
-            name="moyg"
-            id="moyg"
-          />
+          <TextField sx={{ flex: 1 }} label="Moyenne générale" name="moyg" id="moyg" />
         </Stack>
         <Typography>Resultat</Typography>
         <Stack sx={{ gap: 4 }} direction={"row"}>
-          <TextField
-            sx={{ flex: 1 }}
-            label="Mathématiques"
-            name="math"
-            id="math"
-          />
-          <TextField sx={{ flex: 1 }} label="physique" name="phys" id="phys" />
-          <TextField sx={{ flex: 1 }} label="science" name="scie" id="scie" />
-          <TextField sx={{ flex: 1 }} label="CHOIX" name="choix" id="choix" />
+          <TextField sx={{ flex: 1 }} label="Mathématiques" name="math" id="math"  />
+          <TextField sx={{ flex: 1 }} label="physique" name="phys" id="phys"  />
+          <TextField sx={{ flex: 1 }} label="science" name="scie" id="scie"  />
+          <TextField sx={{ flex: 1 }} label="CHOIX" name="choix" id="choix"  autoComplete="on" />
         </Stack>
         <Box>
           <Button

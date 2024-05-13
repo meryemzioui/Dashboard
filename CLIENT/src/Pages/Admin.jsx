@@ -1,68 +1,58 @@
-import { DataGrid } from "@mui/x-data-grid";
-import { useTheme } from "@mui/material";
-import { Box, Typography } from "@mui/material";
-import {
-  AdminPanelSettingsOutlined,
-  LockOpenOutlined,
-} from "@mui/icons-material";
+import { DataGrid, GridToolbar } from "@mui/x-data-grid";
+import { Box, Button} from "@mui/material";
 import Header from "../Components/Header";
+import { useEffect, useState } from "react";
+import axios from "axios";
+import Swal from "sweetalert2";
 
 const Admin = () => {
-  const theme = useTheme();
-  const rows = [
-    {
-      id: 1,
-      name: "Walid",
-      email: "jonsnow@gmail.com",
-      age: 13,
-      phone: "(665)121-5454",
-      access: "User",
-    },
-    {
-      id: 2,
-      name: "Meryem",
-      email: "meryem.zioui@gmail.com",
-      age: 37,
-      phone: "(421)314-2288",
-      access: "Admin",
-    },
-    {
-      id: 3,
-      name: "DjamelEddine",
-      email: "jaim@gmail.com",
-      age: 48,
-      phone: "(422)982-6739",
-      access: "User",
-    },
-    {
-      id: 4,
-      name: "Mohamed",
-      email: "Moha@gmail.com",
-      age: 6,
-      phone: "(921)425-6742",
-      access: "User",
-    },
-    {
-      id: 5,
-      name: "Amir",
-      email: "Miroo@gmail.com",
-      age: 4,
-      phone: "(421)445-1189",
-      access: "User",
-    },
-  ];
+  
+  const [users, setUsers] = useState([]);
+  useEffect(() => {
+    const apiUrl = import.meta.env.VITE_API_URL;
+    axios
+      .get(`${apiUrl}/auth/register`)
+      .then((res) => setUsers(res.data))
+      .catch((err) => console.log(err));
+      console.log(users);
+  }, []);
+
+
+
+  const handleDelete = (id) => {
+    // Display SweetAlert confirmation dialog
+    Swal.fire({
+      title: "Are you sure?",
+      text: "You won't be able to revert this!",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Yes, delete it!",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        // User confirmed deletion, proceed with delete operation
+        const apiUrl = import.meta.env.VITE_API_URL;
+        axios
+          .delete(`${apiUrl}/auth/register/${id}`)
+          .then(() => {
+            // If the delete operation is successful, remove the user from the state
+            setUsers(users.filter((user) => user._id !== id));
+            console.log("User deleted successfully");
+          })
+          .catch((err) => {
+            console.log("Error deleting user:", err);
+          });
+      }
+    });
+  };
+
 
   const columns = [
+  
     {
-      field: "id",
-      headerName: "ID",
-      width: 33,
-      align: "center",
-      headerAlign: "center",
-    },
-    {
-      field: "name",
-      headerName: "name",
+      field: "username",
+      headerName: "username",
       align: "left",
       headerAlign: "left",
       flex: 1,
@@ -70,69 +60,42 @@ const Admin = () => {
     {
       field: "email",
       headerName: "email",
-      flex: 1,
       align: "center",
       headerAlign: "center",
-    },
-    { field: "age", headerName: "age", align: "center", headerAlign: "center" },
-    {
-      field: "phone",
-      headerName: "phone",
       flex: 1,
-      align: "center",
-      headerAlign: "center",
     },
     {
-      field: "access",
-      headerName: "access",
+      flex: 1,
+      field: "action",
+      headerName: "Action",
       align: "center",
       headerAlign: "center",
-      renderCell: ({ row: { access } }) => {
-        return (
-          <Box
-            sx={{
-              p: "5px",
-              width: "80px",
-              alignItems: "center",
-              borderRadius: "3px",
-              textAlign: "center",
-              display: "flex",
-              justifyContent: "space-evenly",
-
-              backgroundColor:
-                access === "Admin" ? theme.palette.primary.dark : "#3da58a",
-            }}
+      renderCell: (params) => (
+        <div>
+          <Button
+            variant="contained"
+            color="secondary"
+            onClick={() => handleDelete(params.row._id)}
           >
-            {access === "Admin" && (
-              <AdminPanelSettingsOutlined
-                sx={{ color: "#fff" }}
-                fontSize="small"
-              />
-            )}
-
-            {access === "User" && (
-              <LockOpenOutlined sx={{ color: "#fff" }} fontSize="small" />
-            )}
-
-            <Typography sx={{ fontSize: "13px", color: "#fff" }}>
-              {access}
-            </Typography>
-          </Box>
-        );
-      },
+            Delete
+          </Button>
+        </div>
+      ),
     },
   ];
 
  
-
-
   return (
     <Box>
       <Header title={"TEAM"} subTitle={"Managing the Team Members"} />
 
       <Box sx={{ height: 400, mx: "auto", paddingRight: "15px" }}>
         <DataGrid
-          rows={rows}
+        slots={{
+          toolbar: GridToolbar,
+        }}
+          rows={users}
+          getRowId={(row) => row._id}
           columns={columns}
           initialState={{
             pagination: {

@@ -63,3 +63,38 @@ exports.readStud = async (req, res) => {
     res.status(500).json({ message: err.message });
   }
 };
+
+exports.deleteStudents = async (req, res) => {
+  try {
+    const deletedStudents = await stud.findByIdAndDelete(req.params.id);
+    if (!deletedStudents) {
+      return res.status(404).json({ message: "Student not found" });
+    }
+    res.json({ message: "Student deleted" });
+  } catch (err) {
+    res.status(500).json({ message: err.message });
+  }
+};
+
+
+
+
+exports.getNumberOfNonAdmittedStudents = async (req, res) => {
+  try {
+    const numberOfNonAdmittedStudents = await stud.countDocuments({ orient: "non admis" });
+    res.json({ numberOfNonAdmittedStudents });
+  } catch (err) {
+    console.log(err);
+    res.status(500).send("Error occurred while fetching number of non admitted students");
+  }
+};
+
+exports.getNumberOfAdmittedStudents = async (req, res) => {
+  try {
+    const numberOfAdmittedStudents = await stud.countDocuments({ orient: { $ne: "non admis" } });
+    res.json({ numberOfAdmittedStudents });
+  } catch (err) {
+    console.log(err);
+    res.status(500).send("Error occurred while fetching number of admitted students");
+  }
+};

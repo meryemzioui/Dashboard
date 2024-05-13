@@ -1,16 +1,18 @@
-import { Box } from "@mui/material";
+import { Box, Button } from "@mui/material";
 import Header from "../Components/Header";
-import { DataGrid } from "@mui/x-data-grid";
+import { DataGrid, GridToolbar } from "@mui/x-data-grid";
 import { useEffect, useState } from "react";
 import axios from "axios";
 import moment from "moment";
+import Swal from "sweetalert2";
 
 const Class = () => {
   const [Students, setStudents] = useState([]);
 
   useEffect(() => {
+    const apiUrl = import.meta.env.VITE_API_URL;
     axios
-      .get("http://localhost:5000/student")
+      .get(`${apiUrl}/student`)
       .then((res) => {
         // Format date values before setting the state
         const formattedStudents = res.data.map((student) => ({
@@ -22,6 +24,34 @@ const Class = () => {
       })
       .catch((err) => console.log(err));
   }, []);
+
+  const handleDelete = (id) => {
+    // Display SweetAlert confirmation dialog
+    Swal.fire({
+      title: "Are you sure?",
+      text: "You won't be able to revert this!",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Yes, delete it!",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        // student confirmed deletion, proceed with delete operation
+        axios
+          .delete(`http://localhost:5000/student/${id}`)
+          .then(() => {
+            // If the delete operation is successful, remove the student from the state
+            setStudents(Students.filter((student) => student._id !== id));
+            console.log("student deleted successfully");
+          })
+          .catch((err) => {
+            console.log("Error deleting student:", err);
+          });
+      }
+    });
+  };
+
 
   const columns = [
     {
@@ -95,6 +125,24 @@ const Class = () => {
       align: "center",
       headerAlign: "center",
     },
+    {
+      flex: 1,
+      field: "action",
+      headerName: "Action",
+      align: "center",
+      headerAlign: "center",
+      renderCell: (params) => (
+        <div>
+          <Button
+            variant="contained"
+            color="secondary"
+            onClick={() => handleDelete(params.row._id)}
+          >
+            Delete
+          </Button>
+        </div>
+      ),
+    },
   ];
 
   return (
@@ -103,6 +151,9 @@ const Class = () => {
 
       <Box sx={{ height: 400, mx: "auto", paddingRight: "15px" }}>
         <DataGrid
+        slots={{
+          toolbar: GridToolbar,
+        }}
           rows={Students}
           getRowId={(row) => row._id}
           columns={columns}

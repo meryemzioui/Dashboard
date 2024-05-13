@@ -34,3 +34,27 @@ exports.login = async (req, res) => {
     return res.status(500).send(err.message);
   }
 };
+
+exports.readUsers = async (req, res) => {
+  try {
+    const Users = await User.find();
+    console.log(Users);
+    res.json(Users);
+  } catch (err) {
+    res.status(500).json({ message: err.message });
+  }
+};
+
+
+// Delete a User
+exports.deleteUsers = async (req, res) => {
+  try {
+    const deletedUsers = await User.findByIdAndDelete(req.params.id);
+    if (!deletedUsers) {
+      return res.status(404).json({ message: "User not found" });
+    }
+    res.json({ message: "User deleted" });
+  } catch (err) {
+    res.status(500).json({ message: err.message });
+  }
+};

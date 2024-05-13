@@ -62,8 +62,8 @@ export default function SignUp() {
         console.log(data.user);
 
         Swal.fire({
-          title: "Good job!",
-          text: "You clicked the button!",
+          title: "Success!",
+          text: "Sign up successful!",
           icon: "success",
         });
         navigate("/dashboard");

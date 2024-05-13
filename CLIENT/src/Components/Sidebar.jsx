@@ -1,5 +1,6 @@
 import {
   Box,
+  Divider,
   Drawer,
   List,
   ListItem,
@@ -23,7 +24,6 @@ import { useEffect, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 
 const navItems = [
-  
   {
     text: "",
     icon: null,
@@ -105,6 +105,20 @@ const Sidebar = ({
             },
           }}
         >
+          <Box alignItems="center" gap="0.5rem">
+            <img
+              align="center"
+              width="64"
+              height="64"
+              src="https://img.icons8.com/cotton/64/graduation-cap--v2.png"
+              alt="graduation-cap--v2"
+            />
+            <Typography variant="h4" fontWeight="bold" align="center">
+              OrientPro
+            </Typography>
+          </Box>
+
+          <Divider />
           <Box width="100%">
             <List>
               {navItems.map(({ text, icon }) => {
