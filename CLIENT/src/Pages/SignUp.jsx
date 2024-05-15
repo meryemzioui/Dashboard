@@ -52,7 +52,7 @@ export default function SignUp() {
   const lastName = data.get("lastName");
 
     axios
-      .post("http://localhost:5000/auth/register", {
+      .post("https://dashboardback-6foi80mdp-meryemziouis-projects.vercel.app/auth/register", {
         email,
         password,
         username: firstName + lastName,
